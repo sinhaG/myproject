@@ -1,20 +1,19 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect,render,get_object_or_404
-from .models import Board,Topics,Post
-from django.http import Http404
-from .forms import NewTopicForm
-
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import NewTopicForm
+from .models import Board, Topic, Post
+
 
 def home(request):
     boards = Board.objects.all()
-    
+    return render(request, 'home.html', {'boards': boards})
 
-    return render(request,'index.html',{'boards':boards})
 
-def board_topics(request,pk):
-    board = get_object_or_404(Board,pk=pk)
-    return render(request,'topics.html',{'board':board})
+def board_topics(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+    return render(request, 'topics.html', {'board': board})
+
 
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
