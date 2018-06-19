@@ -102,3 +102,7 @@ site
 
 # mypy
 .mypy_cache
+
+# SQLite database files
+
+*.sqlite3
