@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from decouple import config
+from decouple import config,Csv
 import dj_database_url
 
 SECRET_KEY = config('SECRET_KEY')
