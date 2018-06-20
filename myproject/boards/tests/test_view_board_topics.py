@@ -1,11 +1,9 @@
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.urls import resolve
 from django.test import TestCase
+from django.urls import resolve, reverse
 
-from ..views import home, board_topics, new_topic
-from ..models import Board, Topic, Post
-from ..forms import NewTopicForm
+from ..models import Board
+from ..views import TopicListView
+
 
 class BoardTopicsTests(TestCase):
     def setUp(self):
@@ -23,7 +21,7 @@ class BoardTopicsTests(TestCase):
 
     def test_board_topics_url_resolves_board_topics_view(self):
         view = resolve('/boards/1/')
-        self.assertEquals(view.func, board_topics)
+        self.assertEquals(view.func.view_class, TopicListView)
 
     def test_board_topics_view_contains_navigation_links(self):
         board_topics_url = reverse('board_topics', kwargs={'pk': 1})
@@ -32,8 +30,3 @@ class BoardTopicsTests(TestCase):
         response = self.client.get(board_topics_url)
         self.assertContains(response, 'href="{0}"'.format(homepage_url))
         self.assertContains(response, 'href="{0}"'.format(new_topic_url))
-
-    def test_board_topics_url_resolves_board_topics_view(self):
-        view = resolve('/boards/1/')
-        self.assertEquals(view.func.view_class, TopicListView)
-

@@ -107,3 +107,7 @@ site
 # SQLite database files
 
 *.sqlite3
+.vscode
+.vscode/
+myproject/venv
+__pycache__/
